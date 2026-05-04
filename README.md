@@ -160,11 +160,6 @@ If you encounter any lock error, simply restart Streamlit — the vector store w
 
 ---
 
-## 📄 License
-
-MIT — see [LICENSE](LICENSE) for details.
-
----
 
 <div align="center">
 
