@@ -154,7 +154,7 @@ Key tests:
 
 ## 🪟 Windows Notes
 
-CogniRAG v2 is **fully Windows-compatible**. The reset mechanism uses ChromaDB's native `delete_collection()` API instead of `shutil.rmtree`, which avoids SQLite file-lock errors that plagued v1.
+CogniRAG v1 is **fully Windows-compatible**. The reset mechanism uses ChromaDB's native `delete_collection()` API instead of `shutil.rmtree`, which avoids SQLite file-lock errors that plagued v1.
 
 If you encounter any lock error, simply restart Streamlit — the vector store will reinitialize cleanly.
 
