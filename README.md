@@ -132,27 +132,6 @@ streamlit run ui/streamlit_app.py
 ---
 
 
-| Endpoint | Method | Description |
-|---|---|---|
-| `/upload` | `POST` | Ingest PDF file or URL |
-| `/ask` | `POST` | Ask a question |
-| `/ask/stream` | `GET` | Streaming answer |
-| `/status` | `GET` | Chunk count + source list |
-| `/reset` | `DELETE` | Wipe vector store |
-
-
----
-
-
-Key tests:
-- `test_reset_then_add` — verifies the Windows-safe reset works
-- `test_reset_clears_memory` — session isolation regression test
-- `test_similarity_search` — retrieval correctness
-- `test_mmr_toggle` — MMR mode switching
-
----
-
-
 <div align="center">
 
 Built by [@mohamedatr1](https://github.com/mohamedatr1)
