@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - VECTOR_STORE_TYPE=${VECTOR_STORE_TYPE:-chroma}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-openai}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - CHUNK_SIZE=${CHUNK_SIZE:-1000}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP:-200}
+      - TOP_K=${TOP_K:-4}
+      - PERSIST_DIRECTORY=${PERSIST_DIRECTORY:-./chroma_db}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+    volumes:
+      - ./chroma_db:/app/chroma_db
+    depends_on:
+      - ollama
+
+  ui:
+    image: streamlit/streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    volumes:
+      - .:/app
+      - ./chroma_db:/app/chroma_db
+    command: >
+      bash -c "cd /app && 
+      pip install -r requirements.txt && 
+      streamlit run ui/streamlit_app.py --server.port=8501 --server.address=0.0.0.0"
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:
